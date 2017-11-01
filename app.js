@@ -33,22 +33,25 @@ randomTopNewsIDGenerator();
 
 //API call to TOP_NEWS_URL, function retrns 10 random top news ids
 function getNewsDetails() {
-    $.getJSON(TOP_NEWS_URL).done((data) => {
+    $.getJSON(TOP_NEWS_URL).done((data) => {                                                        //API for top news
         for (let i = 0; i < state.randomTopNewsIndex.length; i++) {
             top_ten_newsIds.push(data[i]);
-            $.getJSON(STORY_URL + top_ten_newsIds[i] + ".json")
+            let timeStamp = new Date();
+            $.getJSON(STORY_URL + top_ten_newsIds[i] + ".json")                                     //API for stories to get story details
                 .done((story) => {
                     storiesArray.push({
                         title: story.title,
                         author: story.by,
                         score: story.score,
                         story_url: story.url,
-                        story_time: story.time,
+                        story_time: timeStamp.toDateString(story.time)                              //converting time to readable form
                     })
-                    $.getJSON(AUTHOR_URL + story.by + ".json")
+                    $.getJSON(AUTHOR_URL + story.by + ".json")                                      //API for author details to get karma score
                         .done((author) => {
                             for (let i = 0; i < storiesArray.length; i++) {
-                                if (storiesArray[i].author === author.id) {
+                                //'by' key of the Story API should be the same as 
+                                //the author's 'id' key from the Author API
+                                if (storiesArray[i].author === author.id) {                         
                                     storiesArray[i].karma = author.karma
                                 }
                             }
@@ -58,5 +61,5 @@ function getNewsDetails() {
     })
     state.storiesArray = storiesArray;
 }
-console.log(state);
-getNewsDetails();
+getNewsDetails();                                                                      
+console.log(state.storiesArray);                                                    //logs in the console all data from the three API and 10 random indices of top news
