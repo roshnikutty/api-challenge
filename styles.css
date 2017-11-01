@@ -1,0 +1,30 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    margin:0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top:5px;
+    font-family: Helvetica, sans-serif;
+}
+
+.header-row {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 7px;
+    padding-left: 18px;
+    padding-right: 18px;
+    border-radius: 5px;
+}
+
+.direction{
+    color: grey;
+    font-size: 20px;
+}
+.js-results {
+    width: 60%;
+    margin-right: 0px;
+    display: inline-block;
+}
