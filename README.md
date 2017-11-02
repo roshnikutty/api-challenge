@@ -6,10 +6,10 @@
 "Windows + alt+ I" on a PC or 
 "View > Developer > Developer Tools" on Chrome
 
-![chrome_console](https://github.com/roshnikutty/neighborFoods-react-front-end/blob/master/readme_images/meal_listing.png)
+![chrome_console](https://github.com/roshnikutty/api-challenge/blob/master/screen-shots/chrome-console.png)
 
 
-![firefox_console](https://github.com/roshnikutty/neighborFoods-react-front-end/blob/master/readme_images/meal_listing.png)
+![firefox_console](https://github.com/roshnikutty/api-challenge/blob/master/screen-shots/firefox-console.png)
 
 
 1. Function randomTopNewsIDGenerator() generates random indices to point to the array returned by Top stories API. Note that ‘500’ used to generate the random indices is so that the random numbers are uptil 500. Thus function uses checkAndGenerateApiIndex() to check no duplicate random indices are generated.
