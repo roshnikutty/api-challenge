@@ -12,7 +12,7 @@ let state = {
 //Check for unique indices in the array
 let checkAndGenerateApiIndex = () => {
     while (true) {
-        let random = Math.floor((Math.random() * 500));
+        let random = Math.floor((Math.random() * state.topNewsLength));
         let found = state.randomTopNewsIndex.find(function (indx) {
             return random === indx;
         });
@@ -30,16 +30,19 @@ let randomTopNewsIDGenerator = () => {
     }
 }
 
-randomTopNewsIDGenerator();
+
 
 //API call to TOP_NEWS_URL, function returns 10 random top news ids
 let getNewsDetails = () => {
     let top_ten_newsIds = [];
     let storiesArray = [];
     state.storiesArray = storiesArray;
-    let number_of_news_remaining = state.randomTopNewsIndex.length;
     $.getJSON(TOP_NEWS_URL)                                                                         //API for top news
         .then((data) => {
+            state.topNewsLength = data.length;                                              //get data array length of top news API
+            randomTopNewsIDGenerator();                                                     //using data length from above to as upper limit in randomTopNewsIDGenerator()'s checkAndGenerateApiIndex()
+            let number_of_news_remaining = state.randomTopNewsIndex.length;
+
             for (let i = 0; i < state.randomTopNewsIndex.length; i++) {
                 top_ten_newsIds.push(data[i]);
                 let timeStamp = new Date();
