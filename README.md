@@ -2,9 +2,14 @@
 ## using Topstories, Story info, Author info APIs
 ========================================
 ### Solution
-** This is a work in progress. For now, please check Chrome's or Firefox's console using "Command + Option + I" on Mac or 
+** This is a work in progress. **
+To see a working Javascript solution:
+1. https://roshnikutty.github.io/api-challenge/
+2. For now, please check Chrome's or Firefox's console using "Command + Option + I" on Mac or 
 "Windows + alt+ I" on a PC or 
 "View > Developer > Developer Tools" on Chrome
+
+Please see that the Scores are in assending order and each story has Story title, Story URL, Story timestamp, Story score, Author id, Author karma score
 
 ![chrome_console](https://github.com/roshnikutty/api-challenge/blob/master/screen-shots/chrome-console.png)
 
