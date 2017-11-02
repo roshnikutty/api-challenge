@@ -32,40 +32,51 @@ let randomTopNewsIDGenerator = () => {
 
 randomTopNewsIDGenerator();
 
-//API call to TOP_NEWS_URL, function retrns 10 random top news ids
+//API call to TOP_NEWS_URL, function returns 10 random top news ids
 let getNewsDetails = () => {
     let top_ten_newsIds = [];
     let storiesArray = [];
-    $.getJSON(TOP_NEWS_URL).done((data) => {                                                        //API for top news
-        for (let i = 0; i < state.randomTopNewsIndex.length; i++) {
-            top_ten_newsIds.push(data[i]);
-            let timeStamp = new Date();
-            $.getJSON(STORY_URL + top_ten_newsIds[i] + ".json")                                     //API for stories to get story details
-                .done((story) => {
-                    storiesArray.push({
-                        title: story.title,
-                        author: story.by,
-                        score: story.score,
-                        story_url: story.url,
-                        story_time: timeStamp.toDateString(story.time)                              //converting time to readable form
-                    })
-                    $.getJSON(AUTHOR_URL + story.by + ".json")                                      //API for author details to get karma score
-                        .done((author) => {
-                            for (let i = 0; i < storiesArray.length; i++) {
-                                //'by' key of the Story API should be the same as 
-                                //the author's 'id' key from the Author API
-                                if (storiesArray[i].author === author.id) {
-                                    storiesArray[i].karma = author.karma
-                                }
-                            }
+    state.storiesArray = storiesArray;
+    let number_of_news_remaining = state.randomTopNewsIndex.length;
+    $.getJSON(TOP_NEWS_URL)                                                                         //API for top news
+        .then((data) => {
+            for (let i = 0; i < state.randomTopNewsIndex.length; i++) {
+                top_ten_newsIds.push(data[i]);
+                let timeStamp = new Date();
+
+                $.getJSON(STORY_URL + top_ten_newsIds[i] + ".json")                                 //API for stories
+                    .then((story) => {
+                        storiesArray.push({
+                            title: story.title,
+                            author: story.by,
+                            score: story.score,
+                            story_url: story.url,
+                            story_time: timeStamp.toDateString(story.time)                              //converting time to readable form
                         })
-                });
+
+                        $.getJSON(AUTHOR_URL + story.by + ".json")                                  //API for author
+                            .then((author) => {
+                                if (author) {
+                                    for (let i = 0; i < storiesArray.length; i++) {
+                                        //'by' key of the Story API should be the same as 
+                                        //the author's 'id' key from the Author API
+                                        if (storiesArray[i].author === author.id) {
+                                            storiesArray[i].karma = author.karma
+                                        }
+                                    }
+                                    number_of_news_remaining -= 1;                      //finished processing a news item
+                                    if (number_of_news_remaining === 0) {               //making sure that the promise is resolved before sorting
+                                        console.log(sort());
+                                    }
+                                }
+                            });
+                    });
+            }
         }
-    })
-    setTimeout(function () {
-        state.storiesArray = storiesArray;
-    }, 1000);
+        )
 }
+
+
 getNewsDetails();
 
 
@@ -75,43 +86,7 @@ let sort = () => {
     sortedArray.sort(function (a, b) {
         return b.score - a.score;
     });
-    setTimeout(function () {
-        state.sortedArray = sortedArray;
-    }, 1000);
+    state.sortedArray = sortedArray;
     return sortedArray;
 }
-                                
-setTimeout(function () {
-    console.log(sort());
-}, 1000);
 
-//-------------------  Page display  -------------------------
- /*
-let displayData = () => {
-    randomTopNewsIDGenerator();
-    getNewsDetails();
-    sort();
-    var resultElement = "";
-    if (state.sortedArray.length) {
-        state.sortedArray.forEach(function (item) {
-            resultElement = resultElement +
-                `<p>Story Title: ${item.title} </p>
-                <p>Story URL: ${item.story_url}</p>
-                <p>Story timestamp to Date: ${item.story_time}</p>       
-                <p>Story score: ${item.score}</p>
-                <p>Author id: ${item.author}</p>
-                <p>Author karma score: ${item.karma}</p>`;
-        });
-    }
-    else {
-        return "No results were found.";
-    }
-    $(".js-results").html(resultElement);
-}
-
-
-$(function(){
-  displayData();
-});
-
-*/
