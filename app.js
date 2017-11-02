@@ -31,7 +31,6 @@ let randomTopNewsIDGenerator = () => {
 }
 
 
-
 //API call to TOP_NEWS_URL, function returns 10 random top news ids
 let getNewsDetails = () => {
     let top_ten_newsIds = [];
@@ -70,6 +69,7 @@ let getNewsDetails = () => {
                                     number_of_news_remaining -= 1;                      //finished processing a news item
                                     if (number_of_news_remaining === 0) {               //making sure that the promise is resolved before sorting
                                         console.log(sort());
+                                        displayData();
                                     }
                                 }
                             });
@@ -78,9 +78,6 @@ let getNewsDetails = () => {
         }
         )
 }
-
-
-getNewsDetails();
 
 
 //Sort output by story score
@@ -93,3 +90,31 @@ let sort = () => {
     return sortedArray;
 }
 
+//-------------------  Page display  -------------------------
+
+let displayData = () => {
+    let resultElement = "";
+    console.log(state);
+    if (state.sortedArray.length) {
+        state.sortedArray.forEach(function (item) {
+            resultElement = resultElement +
+                `<div class="result-row">
+                    <p><b>Story Title</b> ${item.title} </p>
+                    <p><b>Story URL</b> ${item.story_url}</p>
+                    <p><b>Story timestamp to Date</b> ${item.story_time}</p>       
+                    <p><b>Story score</b> ${item.score}</p>
+                    <p><b>Author id</b> ${item.author}</p>
+                    <p><b>Author karma score</b> ${item.karma}</p>
+                </div>`;
+        });
+    }
+    else {
+        return "No results were found.";
+    }
+    $(".js-results").html(resultElement);
+}
+
+
+$(function(){
+   getNewsDetails();
+});
