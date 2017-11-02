@@ -1,7 +1,7 @@
-##Challenge hacker-news using 
-##Topstories, Story info, Author info APIs
+# Challenge hacker-news 
+## using Topstories, Story info, Author info APIs
 ========================================
-###Solution
+### Solution
 
 1. Function randomTopNewsIDGenerator() generates random indices to point to the array returned by Top stories API. Note that ‘500’ used to generate the random indices is so that the random numbers are uptil 500. Thus function uses checkAndGenerateApiIndex() to check no duplicate random indices are generated.
 
