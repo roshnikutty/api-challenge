@@ -65,7 +65,6 @@ let getNewsDetails = () => {
     setTimeout(function () {
         state.storiesArray = storiesArray;
     }, 1000);
-    // state.storiesArray = storiesArray;
 }
 getNewsDetails();
 
