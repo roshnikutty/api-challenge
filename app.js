@@ -68,11 +68,6 @@ let getNewsDetails = () => {
 }
 getNewsDetails();
 
-setTimeout(function () {
-    console.log(sort());
-}, 1000);
-
-
 
 //Sort output by story score
 let sort = () => {
@@ -86,9 +81,12 @@ let sort = () => {
     return sortedArray;
 }
                                 
+setTimeout(function () {
+    console.log(sort());
+}, 1000);
 
 //-------------------  Page display  -------------------------
-/*
+ /*
 let displayData = () => {
     randomTopNewsIDGenerator();
     getNewsDetails();

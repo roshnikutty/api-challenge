@@ -26,5 +26,6 @@ body {
 .js-results {
     width: 60%;
     margin-right: 0px;
+    margin-top: 40px;
     display: inline-block;
 }
