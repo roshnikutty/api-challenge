@@ -21,7 +21,7 @@ body {
 
 .js-results {
     width: 60%;
-    margin: 40px 0px 0px 30px;
+    margin: 25px 0px 0px 30px;
     display: inline-block;
 }
 .direction{
@@ -44,4 +44,9 @@ body {
 p > b {
     color: #FF6D19;
     margin-right: 5px;
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
 }

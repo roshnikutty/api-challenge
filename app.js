@@ -98,17 +98,17 @@ let displayData = () => {
     if (state.sortedArray.length) {
         state.sortedArray.forEach(function (item) {
             resultElement = resultElement +
-                `<div class="result-row">
+                `<a href="${item.story_url}"><div class="result-row">
                     <p><b>Story Title</b> ${item.title} </p>
                     <p><b>Story URL</b> ${item.story_url}</p>
                     <p><b>Story timestamp to Date</b> ${item.story_time}</p>       
                     <p><b>Story score</b> ${item.score}</p>
                     <p><b>Author id</b> ${item.author}</p>
                     <p><b>Author karma score</b> ${item.karma}</p>
-                </div>`;
+                </div></a>`;
         });
     }
-    else {
+    else { 
         return "No results were found.";
     }
     $(".js-results").html(resultElement);
